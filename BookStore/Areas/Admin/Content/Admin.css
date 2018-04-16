@@ -1,0 +1,259 @@
+﻿body,ul,li,dl,dt,dd {
+    margin: 0px;
+    padding: 0px;
+    font-size: 12px;
+}
+
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+a {
+    color: #0072A7;
+    text-decoration:none;
+}
+
+ul {
+    list-style:none;
+}
+
+.btn{
+	width:70px;
+    height:22px;
+    background-color:white;
+	font-weight: bold;
+    margin-left: 5px;
+    border:2px solid gray;
+}
+
+a:hover {
+
+    color: #f00;
+}
+
+.border {
+    border-left:1px solid gray;
+    border-right:1px solid gray;
+}
+
+.border_right {
+    border-right:1px solid gray;
+}
+
+.textbox {
+    border: 1px solid silver;
+    float:left;
+    margin-right:5px;
+}
+
+.f_l {
+    float: left;
+}
+
+.f_r {
+    float: right;
+}
+
+.w55 {
+    width: 55px;
+}
+
+#container {
+    width: 1003px;
+    margin: auto;
+}
+
+#head {
+    width: 1003px;
+    height: 92px;
+}
+
+#main {
+    width: 1003px;
+}
+
+#nav {
+    float: left;
+    width: 186px;
+    margin-top:10px;
+    background-image: url("../Images/subnav_t.gif");
+    background-repeat: no-repeat;
+}
+
+#navTop {
+    text-align: center;
+    padding-top: 50px;
+    width: 186px;
+    height: 50px;
+}
+
+#navMiddle {
+    background-image: url("../Images/subnav_m.gif");
+    width: 186px;
+    height: 200px;
+}
+
+#navMiddle li {
+    list-style: none;
+    padding-left: 30px;
+    font: 12px/24px 宋体;
+}
+
+#navBottom {
+    background-image: url("../Images/subnav_b.gif");
+    width: 186px;
+    height: 38px;
+    background-position: bottom;
+}
+
+#content {
+    float: left;
+    margin-top:10px;
+    margin-left: 10px;
+    width: 800px;
+}
+
+#content form{
+	margin-top:10px;
+}
+
+#content form .input{
+	border:1px solid #39F;
+	width:180px;
+	height:20px;
+}
+
+/* login */
+#login {
+    margin: auto;
+    width: 598px;
+}
+
+#login #loginarea {
+    background-image:url(../Images/login_06.gif);
+    height: 174px;
+}
+#login #loginarea #tb {
+    margin: auto;
+}
+#login #loginarea .input{
+	width:180px;
+}
+
+.btnSub
+{
+	width: 67px;
+	height: 19px;
+	background: url(../Images/login_sub.gif) no-repeat;
+	text-align: center;
+	border: none;
+}
+
+.row {
+    background-color: white;
+}
+
+.alternateRow {
+    background-color: #DDF5D9;
+}
+
+.err {
+    color: red;
+}
+
+/* pager */
+.pager
+{
+    float:left;
+    width:100%;
+    display:block;
+    text-align: center;
+    margin-top: 2px;
+    font-family: Arial;
+    vertical-align: middle;
+}
+
+.pager a:link, .pager a:visited,.pager a:active
+{
+    font-weight: bold;
+    margin: 1px 3px;
+    padding: 0.3em 0.5em 0.2em;
+    text-align: center;
+    background: #f66;
+    border: #c00 1px solid;
+    color: #fff;
+    line-height: 25px;
+}
+.pager a:hover
+{
+    font-weight: bold;
+    margin: 1px 3px;
+    padding: 0.3em 0.5em 0.2em;
+    text-align: center;
+    background: #f30;
+    border: #c30 1px solid;
+    color: #fff;
+    line-height: 25px;
+}
+.pager font
+{
+    font-weight: bold;
+    margin: 1px 3px;
+    padding: 0.3em 0.5em 0.2em;
+    text-align: center;
+    background: #b00000;
+    border: #c30 1px solid;
+    color: #fff;
+    line-height: 25px;
+}
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}

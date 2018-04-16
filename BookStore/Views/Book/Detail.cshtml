@@ -1,0 +1,83 @@
+﻿@model BookStore.Models.Book
+
+@{
+    ViewBag.Title = Model.Title + "_图书详情页_第三波书店";
+}
+@section scripts{
+    <script>
+        $(function () {
+            //替换标签
+            /*
+            var tempContent1 = $("#book_content").html().replace(new RegExp("&lt;", "gmi"), "<");
+            var tempContent2 = tempContent1.replace(new RegExp("&gt;", "gmi"), ">");
+            $("#book_content").html(tempContent2);
+            var tempToc1 = $("#book_toc").html().replace(new RegExp("&lt;", "gmi"), "<");
+            var tempToc2 = tempToc1.replace(new RegExp("&gt;", "gmi"), ">");
+            $("#book_toc").html(tempToc2);
+            */
+        });
+    </script>    
+}
+<strong>@Model.Title</strong>
+<div class="book_view">
+    <div class="b_exa">
+        <span class="book_group">书籍分类：@Model.Categorie.Name</span> 
+        <span class="book_status">正在阅读（1 人），已经阅读（@(Model.Clicks) 人） 
+            <span><a href="javascript:void(0)">放入书架</a></span> 
+            <a href="javascript:void(0)">什么是书架？</a>
+        </span>
+    </div>
+        <!--book basic start-->
+    <dl class="put_book">
+        <dt>
+            <img alt="@Model.Title" title="@Model.Title" width="210px" height="280px"  src="@Url.Content("~/Images/BookCovers/"+Model.ISBN+".jpg")" />
+            <p class="chakan">
+                <img src="~/Images/zoom.gif" />
+                <a class="gray878787a" href="javascript:void(0)">点击查看大图</a>
+            </p>
+        </dt>
+        <dd>
+            <div id="book_editor">
+                作 者： @Model.Author<br />
+                出 版 社： @Model.Publisher.Name
+            </div>
+            <ul id="book_attribute">
+                <li>出版时间： @Model.PublishDate.ToString("yyyy年MM月dd日")</li>
+                <li>字 数： 15000字</li>
+                <li>版 次： 2015年四月第三版</li>
+                <li>页 数： 200页</li>
+                <li>印刷时间： @Model.PublishDate.AddMonths(-1).ToString("yyyy年MM月dd日")</li>
+                <li>开 本： 36开</li>
+                <li>印 次： 850次</li>
+                <li>纸 张： A4</li>
+                <li>I S B N ： @Model.ISBN</li>
+                <li>包 装： 平装</li>
+            </ul>
+            <div id="book_price">
+                定价：@Model.UnitPrice.ToString("c")
+            </div>
+            <div id="book_point">
+                <span>送积分：<span id="pointsTag">354</span></span> 
+                <a href="javascript:void(0)">积分说明</a>
+                <br />
+                <br />
+                <a href="@Url.Action("Add", "ShoppingCart", new { id=Model.Id})">
+                    <img id="ibtnBuy" src="~/Images/btn_goumai.gif" />
+                </a>
+            </div>
+        </dd>
+    </dl> <!--book basic end-->
+        <!--book intro start-->
+    <dl class="book_intro">
+        <dt><p><strong>内容提要</strong></p></dt>
+        <dd id="book_content">
+            @Html.Raw(Model.ContentDescription) 
+        </dd>
+    </dl>
+    <dl class="book_intro">
+        <dt><p><strong>目录</strong></p></dt>
+        <dd id="book_toc">
+              @Html.Raw(Model.TOC)
+        </dd>
+    </dl><!--book intro end-->
+</div>

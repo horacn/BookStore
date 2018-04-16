@@ -1,0 +1,79 @@
+﻿@model IEnumerable<BookStore.Models.Book>
+
+@section styles{
+    <link href="~/Content/Booklist.css" rel="stylesheet" />
+}
+@section scripts{
+    <script>
+        function toBookList() {
+            location.href = "@Url.Action("List", "Book", new {categoryId=ViewBag.CategoryId})&sort=" + $("#sorttype").val()+"&pageIndex="+"@ViewBag.PageIndex";
+        }
+    </script>
+}
+<div id="booklist">
+<div>
+    排序方式：
+    <select id="sorttype" name="sorttype" onchange="toBookList()">
+        <option value="PublishDate desc" @if (ViewBag.Sort == "PublishDate desc") {<text>selected="selected"</text> }>按出版日期排序</option>
+        <option value="UnitPrice" @if (ViewBag.Sort == "UnitPrice") {<text>selected="selected"</text> }>按图书价格排序</option>
+        <option value="Clicks desc" @if (ViewBag.Sort == "Clicks desc") {<text>selected="selected"</text> }>按畅销热度排序</option>
+    </select>
+    <hr />
+</div>
+            
+<table>
+    @foreach (var book in Model)
+	{
+	<tr>
+        <td style="vertical-align:top;">
+            <a href="@Url.Action("Detail", "Book", new { id=book.Id})">
+                <img alt="@book.Title" title="@book.Title" src="@Url.Content("~/Images/BookCovers/"+book.ISBN+".jpg")" width="120" height="150" />
+            </a>
+        </td>
+        <td>
+            <strong>@Html.ActionLink(book.Title, "Detail", "Book", new { id = book.Id }, new { title=book.Title})</strong><br />
+            作&nbsp;&nbsp;&nbsp;&nbsp;者：@book.Author<br />
+            出&nbsp;版&nbsp;社：@book.Publisher.Name<br />
+            出版日期：@book.PublishDate.ToString("yyyy年MM月dd日")<br />
+            价&nbsp;&nbsp;&nbsp;&nbsp;格：@book.UnitPrice.ToString("c")<br />
+            点击次数：@book.Clicks<br />
+            @Html.Raw(book.ContentDescription.ToMySubstring(250))
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"><hr /></td>
+    </tr>
+	}
+</table>     
+@if(Model.Count()>0)
+{
+<p style="margin:0px auto;">
+    @if (ViewBag.PageIndex>1)
+    {
+        @Html.ActionLink("首页 ", "List", "Book", new { categoryId=ViewBag.CategoryId,sort=ViewBag.Sort,pageIndex=1},null)
+        @Html.ActionLink("上一页 ", "List", "Book", new { categoryId=ViewBag.CategoryId,sort=ViewBag.Sort,pageIndex=@ViewBag.PageIndex-1},null)
+    }
+    else
+    {
+        <text>首页&nbsp;</text>
+        <text>上一页&nbsp;</text>
+    }
+    @if (ViewBag.PageIndex < ViewBag.TotalPages)
+    {
+        @Html.ActionLink("下一页 ", "List", "Book", new { categoryId = ViewBag.CategoryId, sort = ViewBag.Sort, pageIndex = @ViewBag.PageIndex + 1 }, null)
+         @Html.ActionLink("尾页 ", "List", "Book", new { categoryId = ViewBag.CategoryId, sort = ViewBag.Sort, pageIndex = @ViewBag.TotalPages }, null)
+    }
+    else
+    {
+        <text>下一页&nbsp;</text>
+        <text>尾页&nbsp;</text>
+    }
+    &nbsp;[@ViewBag.PageIndex/@ViewBag.TotalPages]
+</p>
+}
+else
+{
+    <p>抱歉，没有该类别的图书。</p>
+}
+</div>
+

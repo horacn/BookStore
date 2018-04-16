@@ -1,0 +1,58 @@
+﻿@using BookStore.Models;
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="Hz"/>
+    <meta name="description" content="第三波网上书店"/>
+    <meta name="keywords" content="第三波，第三波网上书店,图书，Java，C#,ASP.NET,软件开发，编程图书,管理员"/>
+    <title>@ViewBag.Title</title>
+	<link href="~/Areas/Admin/Content/Admin.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Public.js"></script>
+	@RenderSection("scripts", required: false)
+	@RenderSection("styles",required:false)
+</head>
+<body>
+	 <div id="container">
+        <div id="head">
+            <img alt="" src="~/Areas/Admin/Images/admin_top.gif" />
+        </div>
+        <div id="main">
+            <div id="nav">
+                <div id="navTop">
+                    <strong>
+                        @if(Session["User"]!=null){
+                            @((Session["User"] as UserInfo).Name)
+                        }
+                        else
+                        {
+                            <text>管理员</text>
+                        }
+                       ，您好
+                    </strong>
+                    <hr />
+                </div>
+                <div id="navMiddle">
+                    <ul>
+                        <li>@Html.ActionLink("订单管理","Index","Order")</li>
+                        <li>@Html.ActionLink("用户管理","Index","User")</li>
+                        <li>@Html.ActionLink("用户状态管理","Index","UserState")</li>
+                        <li>@Html.ActionLink("图书分类管理","Index","Category")</li>
+                        <li>@Html.ActionLink("图书管理","Index","Book")</li>
+                        <li>@Html.ActionLink("出版社管理","Index","Publisher")</li>
+                        <li>@Html.ActionLink("安全退出","CheckOut","Account")</li>
+                    </ul>
+                </div>
+                <div id="navBottom"></div>
+            </div>
+            <div id="content">
+            	@RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>

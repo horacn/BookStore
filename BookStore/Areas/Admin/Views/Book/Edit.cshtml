@@ -1,0 +1,138 @@
+﻿@model BookStore.Models.Book
+
+@{
+    ViewBag.Title = "图书信息维护_管理员后台_第三波书店";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section scripts{
+    <link href="~/Content/themes/base/minified/jquery.ui.datepicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.ui.datepicker-zh-CN.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.plus.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" src="~/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#PublishDate").datepicker();
+            CKEDITOR.replace("ContentDescription");
+            CKEDITOR.replace("TOC");
+        })
+    </script>
+}
+@section styles{
+    <style>
+        #Title {
+            width:500px;
+        }
+        #PublishDate {
+            width:227px;
+        }
+        #Author {
+            width:450px;
+        }
+        tr td:first-child {
+            font-weight:bold;
+        }
+        form {
+            background-color:lightblue;
+        }
+    </style>
+}
+
+<h3 style="line-height:30px;">您现在的位置：
+        @Html.ActionLink("第三波","Index","../Home")&gt;
+        @Html.ActionLink("管理员后台","Index","Home")&gt;
+        @Html.ActionLink("图书管理","Index","Book")&gt;
+        @Html.ActionLink("图书信息维护", "Edit", "Book", new {id = Model != null && Model.Id != 0 ? Model.Id.ToString() : null },null)
+        <span style="color:red;">@TempData["message"]</span>
+</h3>
+<!--预留：RenderBody-->
+@using (Html.BeginForm("Edit", "Book", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+<fieldset>
+<legend>图书信息维护</legend>
+<table>
+    <tr>
+        <td>@Html.LabelFor(b=>b.Title)：</td>
+        <td>
+            @Html.TextBoxFor(b=>b.Title)
+            <span>@Html.ValidationMessageFor(b=>b.Title)</span>
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(b=>b.ISBN)：</td>
+        <td>
+            @Html.TextBoxFor(b=>b.ISBN)
+            <span>@Html.ValidationMessageFor(b=>b.ISBN)</span>
+        </td>
+    </tr>
+    <tr>
+        <td>封面:</td>
+        <td>
+            @if (Model != null && Model.Id != 0)
+            {
+                <img id="picture" alt="@Model.Title" width="210px" height="280px" src="@Url.Content("~/Images/BookCovers/"+Model.ISBN+".jpg")" />
+                <br /><br />
+            }
+            <input type="file" name="cover"/>
+            @Html.ValidationSummary(true)
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(b => b.Categorie)：</td>
+        <td>
+            @Html.DropDownListFor(b => b.Categorie.Id, ViewBag.category as IEnumerable<SelectListItem>, "---请选择---")
+            <span>@Html.ValidationMessageFor(b => b.Categorie)</span>
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(b => b.Publisher)：</td>
+        <td>
+            @Html.DropDownListFor(b => b.Publisher.Id, ViewBag.publisher as IEnumerable<SelectListItem>, "---请选择---")
+            <span>@Html.ValidationMessageFor(b => b.Publisher)</span>
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(b => b.PublishDate)：</td>
+        <td>
+            @Html.TextBoxFor(m => m.PublishDate, "{0:yyyy-MM-dd}", new { @readonly = "readonly" })
+            <span>@Html.ValidationMessageFor(b => b.PublishDate)</span>
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(b => b.Author)：</td>
+        <td>
+            @Html.TextBoxFor(b => b.Author)
+            <span>@Html.ValidationMessageFor(b => b.Author)</span>
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(b => b.UnitPrice)：</td>
+        <td>
+            @Html.TextBoxFor(b => b.UnitPrice, "{0:f2}")
+            <span>@Html.ValidationMessageFor(b => b.UnitPrice)</span>
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(b => b.ContentDescription)：</td>
+        <td>
+            @Html.TextAreaFor(m => m.ContentDescription, new { rows = "2" })
+            <span>@Html.ValidationMessageFor(b => b.ContentDescription)</span>
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(b => b.TOC)：</td>
+        <td>
+            @Html.TextAreaFor(m => m.TOC, new { rows = "2" })
+            <span>@Html.ValidationMessageFor(b => b.TOC)</span>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input type="submit" value="提交" class="btn" style="width:110px;height:30px;margin-top:5px;"/>
+        </td>
+    </tr>
+</table>
+</fieldset>
+}

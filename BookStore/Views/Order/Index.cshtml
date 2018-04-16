@@ -1,0 +1,78 @@
+﻿@model BookStore.Helpers.PagedList<BookStore.Models.Order>
+@{
+    ViewBag.Title = "我的订单_第三波书店";
+}
+
+<h2>我的订单</h2>
+<table class="data_table" cellspacing="3" cellpadding="0"  border="1" style="border-width: 0px; width: 96%;">
+    <tr>
+        <th scope="col">图示</th>
+        <th scope="col">书名</th>
+        <th scope="col" width="35px">数量</th>
+        <th scope="col">单价</th>
+        <th scope="col">操作</th>
+    </tr>
+    @{
+        decimal orderTotalPrices = 0;    
+    }
+    @foreach (var o in Model)
+    {
+        <tr style="background-color:#bdeee7;height:25px;">
+            <td colspan="3">
+                &nbsp;订单编号:@o.Id &nbsp;&nbsp;
+                订单日期:@o.OrderDate.ToString("yyyy年MM月dd日hh时mm分ss秒") &nbsp;&nbsp;
+                订单金额:￥@o.TotalPrice.ToString("f2")<td>
+            <td style="text-align:center;">
+                @Html.ActionLink("删除订单", "DeleteOrder", "Order", new { id = o.Id }, new { onclick="return confirm('确定要删除这个订单吗么？');"})</td>
+        </tr>
+        foreach (var od in o.OrderDetails)
+        {
+            <tr class="cartImg">
+                <td><a href="@Url.Action("Detail", "Book", new { id = od.Book.Id })"><img src="@Url.Content("~/Images/BookCovers/"+@od.Book.ISBN+".jpg")" title="@od.Book.Title" width="80" height="100"/></a></td>
+                <td>@Html.ActionLink(od.Book.Title, "Detail", "Book", new { id = od.Book.Id }, new { title=od.Book.Title})</td>
+                <td>@od.Quantity</td>
+                <td>@od.UnitPrice.ToString("c")</td>
+                <td>@Html.ActionLink("删除", "DeleteOrderDetail", "Order", new { id = od.Id }, new { onclick="return confirm('确定要删除这个子订单吗么？');"})</td>
+            </tr>
+        }
+        if (o.OrderDetails.Count == 0)
+        {
+             <tr>
+                 <td colspan="5" height="35px">
+                      商品已删除。
+                 </td>
+            </tr>
+        }
+        orderTotalPrices += o.TotalPrice;        
+    }
+    @if ( Model.Count==0)
+    {
+         <tr>
+             <td colspan="5" height="50px">
+                  @Html.ActionLink("您还没有过订单记录，快去挑选您喜爱的图书吧。","Index","Home")
+             </td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td colspan="3" align="right">
+                <a href="@Url.Action("Index","Home")">继续挑选商品</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+                您的订单总金额：<em><strong>￥@ViewBag.TotalMoneys.ToString("f2")&nbsp;&nbsp;</strong></em>&nbsp;&nbsp; 
+                本页订单总金额：<em><strong id="cartTotal">￥@orderTotalPrices.ToString("f2")&nbsp;&nbsp;</strong></em>
+            </td>
+            <td align="center" colspan="2">
+                @using (Html.BeginForm("EmptyUsersOrder", "Order", FormMethod.Post,new{onsubmit="return confirm('确定要删除所有订单记录吗？');"})) 
+                {
+                    <input type="submit" value="清空我的订单"/>
+                }              
+            </td>
+        </tr>
+    }
+</table>
+@if (Model.Count>0)
+{
+    <div class="pager">
+        @Html.Pager(Model)
+    </div>
+}

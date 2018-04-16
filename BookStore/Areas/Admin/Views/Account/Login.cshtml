@@ -1,0 +1,65 @@
+﻿@model BookStore.Models.LoginInfoModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="Hz"/>
+    <meta name="description" content="第三波网上书店"/>
+    <meta name="keywords" content="第三波，第三波网上书店,图书，Java，Jsp,Php,C,C++,C#,ASP.NET,软件开发，编程图书"/>
+    <title>登录_管理员后台_第三波书店</title>
+	<link href="~/Areas/Admin/Content/Admin.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <style type="text/css">
+        #LoginId, #LoginPwd {
+            width:180px;
+        }
+    </style>
+</head>
+<body>
+    <div id="login">
+        <img alt="" src="~/Areas/Admin/Images/login_03.gif" />
+        <img alt="" src="~/Areas/Admin/Images/login_05.gif" />
+        <div id="loginarea">
+        @using(Html.BeginForm())
+        {
+            <table id="tb" style="margin-left:28%;">
+                <tr>
+                    <td style="text-align: right;">
+                        @Html.LabelFor(m=>m.LoginId)：
+                    </td>
+                    <td>
+                         @Html.TextBoxFor(m => m.LoginId)
+                    </td>
+                    <td width="35%">
+                          @Html.ValidationMessageFor(m=>m.LoginId)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">
+                        @Html.LabelFor(m=>m.LoginPwd)：
+                    </td>
+                    <td>
+                         @Html.PasswordFor(m => m.LoginPwd)
+                    </td>
+                    <td width="35%">
+                          @Html.ValidationMessageFor(m=>m.LoginPwd)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <input style="margin-left:20%;margin-top:1%;" type="submit" value="登录" class="btnSub" />
+                        <input type="reset" value="重置" class="btnSub" />
+                    </td>
+                </tr>
+            </table>
+		  }       
+		</div>
+    </div>
+</body>
+</html>

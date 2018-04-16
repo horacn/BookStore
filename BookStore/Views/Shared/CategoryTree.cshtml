@@ -1,0 +1,13 @@
+﻿@model IEnumerable<BookStore.Models.Categorie>
+
+<ul>
+    @{
+        int count = 0;    
+    }
+    @foreach (var c in Model)
+    {
+        <li style="@(count>19?"display:none;":"")">@Html.ActionLink(c.Name, "List", "Book", new { categoryId=c.Id},null)</li>
+        count++;
+    }
+</ul>
+

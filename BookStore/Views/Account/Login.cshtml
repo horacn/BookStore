@@ -1,0 +1,64 @@
+﻿@model BookStore.Models.LoginInfoModel
+
+@{
+    ViewBag.Title = "登录_第三波书店";
+}
+@section styles{
+    <style>
+        #LoginId, #LoginPwd {
+            width:180px;
+        }
+    </style>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+<img src="~/Images/login.png" width="600" height="110"/>
+@using(Html.BeginForm("Login","Account",new{returnUrl=ViewBag.ReturnUrl},FormMethod.Post,null))
+{
+<table>
+    <tr>
+        <td>@Html.LabelFor(m=>m.LoginId)：</td>
+        <td>
+            @if (Request.Cookies["ck_loginId"] != null && Model == null)
+            {
+                @Html.TextBox("LoginId",Request.Cookies["ck_LoginId"].Value)
+            }
+            else
+            {
+                 @Html.TextBoxFor(m => m.LoginId)
+            }
+            @Html.ValidationMessageFor(m=>m.LoginId)
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m=>m.LoginPwd)：</td>
+        <td>
+            @Html.PasswordFor(m => m.LoginPwd)
+            @Html.ValidationMessageFor(m=>m.LoginPwd)
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+			<input type="checkbox" id="chk" name="chk" 
+				@if(Request.Cookies["ck_loginId"]!=null){
+					<text>checked="checked"</text>
+				}/>
+			<label for="chk">在此计算机上保留我的用户名和密码</label>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input class="btn" type="submit" value="登录" />
+            <input class="btn" type="reset" value="重置" />
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="err" style="color:red;">
+            <!--预留：错误提示-->
+        </td>
+    </tr>
+</table>
+}

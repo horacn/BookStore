@@ -1,0 +1,120 @@
+﻿@using BookStore.Models;
+@using BookStore.BLL;
+
+@{
+    UserManager um = new UserManager();
+    if (Session["User"] == null && Request.Cookies["ck_loginId"] != null)
+    {
+        string loginId = Request.Cookies["ck_loginId"].Value;
+        UserInfo user = um.GetUserInfoByLoginId(loginId);
+        Session["User"] = user;
+        Session[ShoppingCart.CartSessionKey] = user.LoginId;
+        //如果是管理员登录，记住凭据
+        if (user.UserRole.Name == "管理员")
+        {
+            FormsAuthentication.SetAuthCookie(user.LoginId, false);
+        }
+    }
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="Hz"/>
+    <meta name="description" content="第三波网上书店"/>
+    <meta name="keywords" content="第三波，第三波网上书店,图书，Java，Jsp,Php,C,C++,C#,ASP.NET,软件开发，编程图书"/>
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")*@
+    <link href="~/Content/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Public.js"></script>
+    @RenderSection("styles", required: false)
+	@RenderSection("scripts",required:false)
+</head>
+<body>
+	<div id="top">
+        <div class="status">
+			@if(Session["User"]==null)
+			{
+                @Html.ActionLink("【登录】", "Login", "Account")
+                @Html.ActionLink("【免费注册】","Register","Account")
+			}
+			else
+			{
+				<span>欢迎您，@((Session["User"] as UserInfo).Name)&nbsp;</span>
+                @Html.ActionLink("【个人中心】", "Index", "User")
+                @Html.ActionLink("【我的订单】", "Index", "Order")
+                @Html.ActionLink("【退出】", "CheckOut", "Account")
+			}
+        </div>
+        <div class="member">
+            <ul>
+                <li><a href="javascript:void(0)">
+                    <img src="~/Images/payVIP.gif" height="18" alt="开通VIP" /></a></li>
+                <li><a href="javascript:void(0)">
+                    <img src="~/Images/payCoin.gif " height="18" alt="学币中心" /></a></li>
+            </ul>
+        </div>
+    </div> <!-- end top -->
+    
+    <div id="container">
+        <div id="head">
+            <div class="logo"></div>
+            <div class="menu">
+                <div class="space">
+                </div>
+                <ul>
+                    <li>@Html.ActionLink("首页", "Index", "Home")</li>
+                    <li><a href="javascript:void(0)">商讯</a></li>
+                    <li><a href="javascript:void(0)">个性化推荐</a></li>
+                    <li><a href="javascript:void(0)">购物流程</a></li>
+                    <li><a href="javascript:void(0)">在线客服</a></li>
+                    <li><a href="javascript:void(0)">积分兑换</a></li>
+                    <li>@Html.ActionLink("管理入口", "Index", "Admin/Home")</li>
+                    <li><a href="javascript:void(0)">帮助</a></li>
+                </ul>
+            </div>
+        </div> <!-- end head -->
+        <div id="main">
+            <div id="list">
+                <div id="cart">
+                    @if (Session[ShoppingCart.CartSessionKey]!=null && new CartManager().GetCartCount(Session[ShoppingCart.CartSessionKey].ToString())>0)
+                    {
+                        @Html.ActionLink("查看您的购物车","Index","ShoppingCart")
+                    }
+                    else
+                    {
+						@Html.ActionLink("目前您的购物车是空的","Index","ShoppingCart")
+                    }
+                </div>
+                <div id="search">
+				 @using(Html.BeginForm("Search","Book",FormMethod.Post))
+                 {
+                     @Html.TextBox("title","", new {style="width:125px; height:16px;"})
+                     <input type="image" src="~/Images/search-sub.gif" style="vertical-align:middle;"/>
+                 }              
+                </div>
+                <!--图书分类  动态分部视图-->
+                <div id="nav">
+                    <strong><a href="javascript:void(0)" id="openAllCategoryTree">查看所有分类>></a></strong>
+                    <div id="nav_m">
+                       @Html.Action("CategoryTree","Home")
+                    </div>
+                    <div id="nav_b"></div>
+                </div>
+            </div> <!-- end list -->
+            <div id="content">
+              @RenderBody()
+            </div> <!-- end content -->
+        </div> <!-- end main -->
+    </div> <!-- end container -->
+    <!--底部开始  静态分部视图-->
+    <div id="footer">    	
+       @Html.Partial("Footer")
+    </div> <!-- end footer -->
+</body>
+</html>

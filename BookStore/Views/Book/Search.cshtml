@@ -1,0 +1,62 @@
+﻿@model BookStore.Helpers.PagedList<BookStore.Models.Book>
+
+<div>
+    <fieldset>
+        <legend>查询图书</legend>
+        @using (Html.BeginForm())
+        { 
+            <span>类别：</span>
+            @Html.DropDownList("category", "---请选择---")
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;标题：</span>
+            @Html.TextBox("title", "", new { style="width:220px;",id="searchTitle"})
+            <input class="btn" type="submit" value="查询" style="width:100px;"/>
+        }
+    </fieldset>
+</div>
+<div>
+    <table width="100%" style="margin-bottom:10px;">
+    <tr style="font-size:16px;line-height:30px;background-color:lightsteelblue;">
+        <th class="border_right" width="50%">书名</th>
+        <th class="border_right" width="15%">类别</th>
+        <th class="border_right" width="15%">出版社</th>
+        <th class="border_right" width="20%">作者</th>
+    </tr>
+    @{
+        bool flag = false;
+    }
+    @foreach (var book in Model)
+    {
+         <tr @if(flag==false){
+                <text>style="font-size:14px;line-height:25px;"</text>
+            }else{
+                <text>style="font-size:14px;line-height:25px;background-color:lightblue;"</text>
+         }>
+            <td class="border">
+                @Html.ActionLink(book.Title.ToMySubstring(30), "Detail", "Book", new { id = book.Id }, new { title=book.Title})
+            </td>
+            <td class="border_right">
+                <span title="@book.Categorie.Name">@book.Categorie.Name.ToMySubstring(8)</span>
+            </td>
+            <td class="border_right">
+                <span title="@book.Publisher.Name">@book.Publisher.Name.ToMySubstring(7)</span>
+            </td>
+            <td class="border_right">
+                <span title="@book.Author">@book.Author.ToMySubstring(8)</span>
+            </td>
+        </tr>
+        flag = !flag;
+    }
+    </table>
+</div>
+@if (Model.Count>0)
+{
+    <div class="pager">
+        <hr />
+        @Html.Pager(Model)
+    </div>
+}
+else
+{
+    <p>抱歉，没有找到符合要求的图书。</p>
+}
+

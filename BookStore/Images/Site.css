@@ -1,0 +1,248 @@
+﻿body, ul, li, dl, dt, dd {
+    margin: 0px;
+    padding: 0px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+a {
+    color: #0072A7;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #f00;
+    }
+
+.textbox {
+    border: 1px solid silver;
+    float:left;
+    margin-right:5px;
+}
+
+#top {
+    width: 1000px;
+    height: 27px;
+    background: url(../Images/topbg.gif) repeat-x;
+    border: 1px solid #97A2AA;
+    margin: auto;
+}
+
+    #top .status {
+        float: left;
+        width: 600px;
+        padding: 2px 0 0 16px;
+    }
+
+    #top .member {
+        float: right;
+        width: 215px;
+        margin-top: 2px;
+        *margin-top: 3px;
+    }
+
+        #top .member li {
+            float: left;
+            height: 20px;
+            padding: 0 10px;
+            list-style: none;
+            background: url(../Images/topbg.gif) no-repeat 0 -27px;
+        }
+
+
+#container {
+    width: 900px;
+    margin: auto;
+}
+
+#head {
+    height: 100px;
+    width: 100%;
+}
+
+    #head .logo {
+        float: left;
+        width: 298px;
+        height: 94px;
+        background: url(../images/logo.gif);
+    }
+
+    #head .menu {
+        float: left;
+        width: 600px;
+    }
+
+        #head .menu .space {
+            height: 70px;
+            width: 600px;
+        }
+
+        #head .menu li {
+            float: left;
+            font: 14px/22px Tahoma;
+            text-align: center;
+            padding: 0 10px;
+            list-style: none;
+            border-left: 1px solid #DDE4E9;
+            border-bottom: 1px solid #ADB9C2;
+        }
+
+#list {
+    float: left;
+    width: 186px;
+}
+
+    #list #cart {
+        background-image: url(../images/intro_01.gif);
+        width: 186px;
+        height: 22px;
+        padding-top: 68px;
+        text-align: center;
+    }
+
+        #list #cart a {
+            color: white;
+        }
+
+    #list #search {
+        height: 20px;
+        line-height: 20px;
+        padding: 4px 0px;
+    }
+
+    #list #nav {
+        background: url(../images/subnav_t.gif) no-repeat;
+        text-align: center;
+        padding-top:20px;
+    }
+
+        #list #nav #nav_m {
+            background: url(../images/subnav_m.gif) repeat-y;
+            text-align: left;
+            padding-left: 50px;
+        }
+
+            #list #nav #nav_m li {
+                list-style-type: none;
+            }
+
+        #list #nav #nav_b {
+            background: url(../Images/subnav_b.gif) no-repeat 0 bottom;
+            padding-bottom: 20px;
+        }
+
+#content {
+    float: left;
+    margin-left: 15px;
+    width: 695px;
+}
+
+.data_table {
+    border-collapse:collapse;
+}
+
+.cartImg {
+    text-align:center;
+}
+
+.basker_ok{ width:133px; height:43px; background:url(../Images/basker_ok.gif) no-repeat 0 0; border:none; margin-right:10px; }
+
+
+#footer {
+    text-align:center;
+}
+/* pager */
+.pager
+{
+    float:left;
+    width:100%;
+    display:block;
+    text-align: center;
+    margin-top: 2px;
+    font-family: Arial;
+    vertical-align: middle;
+}
+
+.pager a:link, .pager a:visited,.pager a:active
+{
+    font-weight: bold;
+    margin: 1px 3px;
+    padding: 0.3em 0.5em 0.2em;
+    text-align: center;
+    background: #f66;
+    border: #c00 1px solid;
+    color: #fff;
+    line-height: 25px;
+}
+.pager a:hover
+{
+    font-weight: bold;
+    margin: 1px 3px;
+    padding: 0.3em 0.5em 0.2em;
+    text-align: center;
+    background: #f30;
+    border: #c30 1px solid;
+    color: #fff;
+    line-height: 25px;
+}
+.pager font
+{
+    font-weight: bold;
+    margin: 1px 3px;
+    padding: 0.3em 0.5em 0.2em;
+    text-align: center;
+    background: #b00000;
+    border: #c30 1px solid;
+    color: #fff;
+    line-height: 25px;
+}
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}

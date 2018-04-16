@@ -1,0 +1,70 @@
+﻿/* index首页 */
+#index {
+    float: left;
+    width: 475px;
+}
+
+    #index img {
+        border: 1px solid silver;
+    }
+
+    #index #books dl {
+        float: left;
+        margin-left: 2px;
+        width: 154px;
+        height: 200px;
+        text-align: center;
+    }
+
+        #index #books dl dd {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+    #index #books img {
+        width: 120px;
+        height: 150px;
+    }
+
+#sidebar {
+    float: left;
+    margin-left: 15px;
+    width: 196px;
+}
+
+    #sidebar h2 {
+        margin:0px;
+        font-size:12px;
+        text-align:center;
+        height:28px;
+        line-height:28px;
+        color:white;
+        clear:both;
+        background-image:url(../images/sideTitle.gif);
+    }
+
+    #sidebar .recommends {
+        background-position:0px -29px;
+    }
+
+    #sidebar ul {
+        width:196px;
+        height:265px;
+        background-image:url(../images/sideArea.gif);
+        margin-bottom:10px;
+    }    
+
+    #sidebar li {
+        list-style-type:none;
+        line-height:21px;
+        padding-left:5px;
+        width:186px;
+        overflow:hidden;
+        white-space:nowrap;
+    }
+
+        #sidebar li a {
+            text-decoration:underline;
+        }
+
+

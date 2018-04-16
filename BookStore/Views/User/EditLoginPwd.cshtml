@@ -1,0 +1,65 @@
+﻿@model BookStore.Models.EditLoginPwdModel
+@{
+    ViewBag.Title = "修改密码_第三波书店";
+}
+
+@section styles{
+    <style>
+        input[type='password'] {
+            width:300px;
+        }
+        tr td:first-child {
+            font-weight:bold;
+        }
+    </style>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
+@using(Html.BeginForm())
+{
+<fieldset>
+<legend>修改登录密码</legend>
+<table>
+    <tr>
+        <td>
+            @Html.LabelFor(m=>m.OldLoginPwd)：
+        </td>
+        <td>
+            @Html.PasswordFor(m=>m.OldLoginPwd)
+        </td>
+        <td>
+            @Html.ValidationMessageFor(m=>m.OldLoginPwd)
+        </td>
+    </tr>
+     <tr>
+        <td>
+            @Html.LabelFor(m=>m.NewLoginPwd)：
+        </td>
+        <td>
+            @Html.PasswordFor(m=>m.NewLoginPwd)
+        </td> 
+        <td>
+            @Html.ValidationMessageFor(m=>m.NewLoginPwd)
+        </td>
+    </tr>
+     <tr>
+        <td>
+            @Html.LabelFor(m=>m.LoginPwdConfirm)：
+        </td>
+        <td>
+            @Html.PasswordFor(m=>m.LoginPwdConfirm)
+        </td>
+        <td>
+            @Html.ValidationMessageFor(m=>m.LoginPwdConfirm)
+        </td>
+    </tr>
+    <tr align="right">
+        <td colspan="2"><input class="btn" type="submit" value="确定"/></td>
+        <td></td>
+    </tr>
+</table>
+</fieldset>
+}
+@Html.ActionLink("返回", "Index","User", null, new { style="font-size:15px;"})
+

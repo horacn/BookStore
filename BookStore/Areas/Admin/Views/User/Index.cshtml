@@ -1,0 +1,55 @@
+﻿@model BookStore.Helpers.PagedList<BookStore.Models.UserInfo>
+
+@{
+    ViewBag.Title = "用户管理_管理员后台_第三波书店";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div style="margin-left:5%;">
+    <h3 style="line-height:30px;">您现在的位置：
+        @Html.ActionLink("第三波","Index","../Home")&gt;
+        @Html.ActionLink("管理员后台","Index","Home")&gt;
+        @Html.ActionLink("用户管理","Index","User")
+        <span style="color:red;">@TempData["message"]</span>
+    </h3>
+    <table width="100%" style="margin-bottom:20px;">
+        <tr style="font-size:16px;line-height:30px;background-color:lightsteelblue;">
+            <th class="border_right" width="12%">用户名</th>
+            <th class="border_right" width="12%">姓名</th>
+            <th class="border_right" width="20%">电话</th>
+            <th class="border_right" width="22%">Email</th>
+            <th class="border_right" width="22%">地址</th>
+            <th width="12%">操作</th>
+        </tr>
+        @{
+          bool flag = false;
+        }
+        @foreach (var u in Model)
+        {
+            <tr @if(flag==false){
+                    <text>style="font-size:14px;line-height:25px;"</text>
+                }else{
+                    <text>style="font-size:14px;line-height:25px;background-color:lightblue;"</text>
+                }>
+                <td width="12%" class="border">@u.LoginId</td>
+                <td class="border_right" width="12%">@u.Name</td>
+                <td class="border_right" width="20%">@u.Phone</td>
+                <td class="border_right" width="22%">@u.Mail</td>
+                <td class="border_right" width="22%">@u.Address</td>
+                <td class="border_right" width="12%" style="text-align:center;">
+                    @Html.ActionLink("编辑", "Edit", "User", new { id=u.Id},null)
+                    @Html.ActionLink("删除", "Delete", "User", new { id = u.Id }, new { onclick="return confirm('是否要删除此用户？');"})
+                </td>
+            </tr>
+            flag = !flag;
+        }
+    </table>
+    @if (Model.Count>0)
+    {
+        <div class="pager">
+            <hr />
+            @Html.Pager(Model)
+        </div>
+    }else{
+        <p>没有找到用户。</p>
+    }   
+</div>

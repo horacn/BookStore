@@ -1,0 +1,41 @@
+﻿@using BookStore.Models
+
+@{
+    ViewBag.Title = "第三波书店_最方便的网上书店";
+}
+@section styles{
+	<link href="~/Content/Index.css" rel="stylesheet" />
+}
+<div id="index">
+    <img alt="" src="~/Images/a_b_02.jpg" />
+    <div id="books">
+        @foreach (Book book in ViewBag.NewBooks)
+        { 
+        <dl>
+            <dt>
+                <a href="@Url.Action("Detail", "Book", new { id=book.Id})">
+                    <img title="@book.Title" alt="@book.Title" src="@Url.Content("~/Images/BookCovers/"+book.ISBN+".jpg")" />
+                </a>
+            </dt>
+            <dd>@Html.ActionLink(book.Title, "Detail", "Book", new { id = book.Id }, new {title=book.Title })</dd>
+            <dd>@book.UnitPrice.ToString("c")</dd>
+        </dl>
+        }
+    </div>
+</div> <!-- end index -->
+<div id="sidebar">
+    <h2>热销排行</h2>
+    <ul>
+         @foreach (Book book in ViewBag.HotSellBooks)
+         {
+             <li>@Html.ActionLink(book.Title, "Detail", "Book", new { id = book.Id }, new {title=book.Title })</li>
+         }
+    </ul>
+    <h2 class="recommends">编辑推荐</h2>
+    <ul>
+         @foreach (Book book in ViewBag.RecommendBooks)
+         {
+             <li>@Html.ActionLink(book.Title, "Detail", "Book", new { id = book.Id }, new {title=book.Title })</li>
+         }
+    </ul>
+</div> <!-- end sidebar -->

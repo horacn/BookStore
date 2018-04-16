@@ -1,0 +1,28 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="Hz"/>
+    <meta name="description" content="第三波网上书店"/>
+    <meta name="keywords" content="第三波，第三波网上书店,图书，Java，Jsp,Php,C,C++,C#,ASP.NET,软件开发，编程图书"/>
+    <title>出错了_第三波书店</title>
+    <style type="text/css">
+        p {
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>
+        抱歉，处理您的请求时出错。
+    </h2>
+    <p>控制器：@Model.ControllerName</p>
+    <p>动作方法：@Model.ActionName</p>
+    <p>错误描述：@Model.Exception.Message</p>
+</body>
+</html>

@@ -1,0 +1,76 @@
+﻿@model BookStore.Models.ShoppingCartViewModel
+
+@{
+    ViewBag.Title = "购物车_第三波书店";
+}
+@section scripts{
+    <script type="text/javascript">
+        function ChangeCount(recordId, txtCount) {
+            if ($(txtCount).val() == "" || $(txtCount).val() == " " || $(txtCount).val() == "  ") {
+                alert("请输入商品数量");
+                $(txtCount).val("1");
+            }
+            if (isNaN($(txtCount).val())) {
+                alert("请输入正确的商品数量");
+                $(txtCount).val("1");
+            }
+            if (parseInt($(txtCount).val())<1) {
+                alert("商品数量不能小于1");
+                $(txtCount).val("1");
+            }
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("ChangeCount","ShoppingCart")",
+                data: "recordId=" + recordId + "&count=" + $(txtCount).val(),
+                success: function (result) {
+                    if (result != "-1") {
+                        $("#cartTotal").html("￥" + parseFloat(result).toFixed(2) + "&nbsp;&nbsp;");
+                    } else {
+                        alert("系统出现异常！");
+                    }
+                }
+            });
+        }
+    </script>
+}
+
+<h2>购物车</h2>
+<table class="data_table" cellspacing="3" cellpadding="0"  border="1" style="border-width: 0px; width: 96%;">
+    <tr>
+        <th scope="col">图示</th>
+        <th scope="col">书名</th>
+        <th scope="col">数量</th>
+        <th scope="col">单价</th>
+        <th scope="col">操作</th>
+    </tr>
+    @foreach (var c in Model.CartItems)
+    {
+        <tr class="cartImg">
+            <td><a href="@Url.Action("Detail", "Book", new { id = c.Book.Id })"><img src="@Url.Content("~/Images/BookCovers/"+@c.Book.ISBN+".jpg")" title="@c.Book.Title" width="80" height="100"/></a></td>
+            <td>@Html.ActionLink(c.Book.Title, "Detail", "Book", new { id = c.Book.Id }, new { title=c.Book.Title})</td>
+            <td><input onblur="ChangeCount(@c.RecordId,this)" value="@c.Count" size="2" maxlength="2"/></td>
+            <td>@c.Book.UnitPrice.ToString("c")</td>
+            <td>@Html.ActionLink("删除", "Delete", "ShoppingCart", new { id = c.RecordId },null)</td>
+        </tr>
+    }
+    @if ( Model.CartItems.Count==0)
+    {
+         <tr>
+             <td colspan="5" height="50px">
+                  @Html.ActionLink("您的购物车是空的，快去挑选您喜爱的图书吧。","Index","Home")
+             </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="3" align="right">
+                <a href="@Url.Action("Index","Home")">继续挑选商品</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+            商品金额总计：<em><strong id="cartTotal">￥@Model.CartTotal.ToString("f2")&nbsp;&nbsp;</strong></em>
+        </td>
+        <td align="center" colspan="2">
+        @using(Html.BeginForm("Submit","ShoppingCart",FormMethod.Post)) 
+        {
+            <input type="submit" name="CheckOut" value="" id="btnCheckOut" class="basker_ok" />
+        }              
+        </td>
+    </tr>
+</table>

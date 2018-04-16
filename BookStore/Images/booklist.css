@@ -1,0 +1,28 @@
+﻿/* booklist */
+#booklist {
+    border:1px solid silver;
+}
+
+    #booklist div {
+        background-color:#d8f4f5;
+        height:40px;
+        line-height:40px;
+        padding:0px 10px;
+        border-bottom:1px solid silver;
+    }
+
+    #booklist table {
+        padding:0px 10px;
+    }
+
+        #booklist table td {
+            vertical-align: top;
+        }
+
+        #booklist table hr {
+            color:silver;
+        }
+
+    #booklist p {
+        padding:0px 10px;
+    }

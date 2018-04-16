@@ -1,0 +1,101 @@
+﻿@model BookStore.Models.EditUserModel
+@{
+    ViewBag.Title = "修改个人资料_第三波书店";
+}
+
+@section styles{
+    <style>
+        input[type='text'] {
+            width:300px;
+        }
+        tr td:first-child {
+            font-weight:bold;
+        }
+    </style>
+}
+@section scripts{
+    <link href="~/Content/themes/base/minified/jquery.ui.datepicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.ui.datepicker-zh-CN.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.plus.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //日期控件
+            $("#Birthday").datepicker();
+        });
+    </script>
+}
+@using(Html.BeginForm())
+{
+<fieldset>
+<legend>编辑个人信息</legend>
+<table>
+    <tr>
+        <td>
+            @Html.LabelFor(m=>m.LoginId)：
+        </td>
+        <td colspan="2">
+            @Html.TextBoxFor(m=>m.LoginId,new{@readonly="readonly",style="background-color:lightgray;border:1px solid gray;" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(m=>m.Name)：
+        </td>
+        <td>
+            @Html.TextBoxFor(m=>m.Name)
+        </td>
+        <td>
+            @Html.ValidationMessageFor(m=>m.Name)
+        </td>
+    </tr>
+     <tr>
+        <td>
+            @Html.LabelFor(m=>m.Address)：
+        </td>
+        <td>
+            @Html.TextBoxFor(m=>m.Address)
+        </td>
+        <td>
+            @Html.ValidationMessageFor(m=>m.Address)
+        </td>
+    </tr>
+     <tr>
+        <td>
+            @Html.LabelFor(m=>m.Phone)：
+        </td>
+        <td>
+            @Html.TextBoxFor(m=>m.Phone)
+        </td>
+        <td>
+            @Html.ValidationMessageFor(m=>m.Phone)
+        </td>
+    </tr>
+     <tr>
+        <td>
+            @Html.LabelFor(m=>m.Mail)：
+        </td>
+        <td>
+            @Html.TextBoxFor(m=>m.Mail)
+        </td>
+        <td>
+            @Html.ValidationMessageFor(m=>m.Mail)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(m=>m.Birthday)：
+        </td>
+        <td colspan="2">
+            @Html.TextBoxFor(m => m.Birthday, "{0:yyyy-MM-dd}", new { @readonly = "readonly" })
+        </td>
+    </tr>
+    <tr align="right">
+        <td colspan="2"><input class="btn" type="submit" value="保存"/></td>
+        <td></td>
+    </tr>
+</table>
+</fieldset>
+}
+@Html.ActionLink("返回", "Index","User", null, new { style="font-size:15px;"})

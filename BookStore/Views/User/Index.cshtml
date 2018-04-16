@@ -1,0 +1,44 @@
+﻿@model BookStore.Models.UserInfo
+@{
+    ViewBag.Title = "我的个人中心_第三波书店";
+}
+@section styles{
+    <style type="text/css">
+        p {
+            font-weight:bold;
+            font-size:16px;
+        }
+    </style>
+}
+
+@if (Model!=null)
+{
+    <p>
+        <input type="button" class="btn" value="修改资料" onclick='location = "@Url.Action("Edit")";' />
+        <input type="button" class="btn" value="修改密码" onclick='location = "@Url.Action("EditLoginPwd")";'/>
+        <span style="color:red;">@TempData["message"]</span>
+    </p><hr />
+    <p>用户编号:&nbsp; 
+             @Model.Id</p>
+    <p>账号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             @Model.LoginId</p>
+    <p>姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             @Model.Name</p>
+    <p>角色:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             @Model.UserRole.Name</p>
+    <p>状态:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             @Model.UserState.Name</p>
+    <p>电话号码:&nbsp;
+             @Model.Phone</p>
+    <p>邮箱:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             @Model.Mail</p>
+    <p>地址:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             @Model.Address</p>
+    <p>出生日期:&nbsp;
+             @(Model.Birthday.HasValue?Model.Birthday.Value.ToString("yyyy年MM月dd日"):"未填写")</p>
+    <p>注册IP:&nbsp;&nbsp;&nbsp;
+             @(Model.RegisterIp??"未填写")</p>
+    <p>注册时间:&nbsp;
+             @(Model.RegisterTime.HasValue?Model.RegisterTime.Value.ToString("yyyy年MM月dd日"):"未填写")</p>
+}
+

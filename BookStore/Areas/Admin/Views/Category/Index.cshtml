@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "图书分类管理_管理员后台_第三波书店";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section scripts{
+    <script  type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script  type="text/javascript">
+        //清除ajax缓存
+        $.ajaxSetup({ cache: false })
+        $(function () {
+            //ajax加载分部视图
+            $("#divCategoryList").load("@Url.Action("DisPlay","Category")");
+        });
+        //ajax提交表单的回调函数
+        function doSeccess(result) {
+            if (result == "1") {
+                $("#addMsg").html("类别名称不能为空").css("color","red");
+            } else if (result == "2") {
+                $("#addMsg").html("已经存在这个类别名称").css("color", "red");
+            } else if (result == "3") {
+                $("#addMsg").html("添加图书类别成功").css("color", "green");
+                $("#divCategoryList").load("@Url.Action("DisPlay","Category")");
+            } else if (result == "4") {
+                $("#addMsg").html("添加图书类别失败，请联系系统管理员").css("color", "red");
+            }
+            $("#Name").val("");
+        }
+    </script>
+}
+
+<div style="margin-left:5%;">
+    <h3 style="line-height:30px;">您现在的位置：
+        @Html.ActionLink("第三波","Index","../Home")&gt;
+        @Html.ActionLink("管理员后台","Index","Home")&gt;
+        @Html.ActionLink("图书分类管理","Index","Category")
+    </h3>
+    <!--ajax提交表单-->
+    @using (Ajax.BeginForm("Add", "Category", new AjaxOptions { Confirm="确定添加吗？",HttpMethod="Post",OnSuccess="doSeccess"}))
+    {   
+        <p>
+            <input type="text" name="Name" id="Name" style="width:200px;"/>
+            <input class="btn" type="submit" value="添加分类" style="width:110px;"/>
+            <span id="addMsg"></span>
+            <span style="color:red;">@TempData["message"]</span>
+        </p>
+    }
+    <div id="divCategoryList"></div>
+</div>

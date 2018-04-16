@@ -1,0 +1,25 @@
+﻿@model BookStore.Models.Publisher
+
+@{
+    ViewBag.Title = "编辑出版社_管理员后台_第三波书店";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin-left:5%;">
+    <h3 style="line-height:30px;">您现在的位置：
+        @Html.ActionLink("第三波","Index","../Home")&gt;
+        @Html.ActionLink("管理员后台","Index","Home")&gt;
+        @Html.ActionLink("图书分类管理","Index","Publisher")&gt;
+        @Html.ActionLink("编辑出版社", "Edit", "Publisher", new {id=Model.Id },null)
+    </h3>
+    <form action="@Url.Action("Edit", "Publisher", new {id=Model.Id})" method="post">
+        <p>
+            <input type="text" name="Name" id="Name" value="@Model.Name" style="width:350px;"/>
+            <span style="color:red;">@TempData["message"]</span>
+        </p>
+        <p>
+            <input style="margin-left:13%;margin-top:1%;" class="btn" type="submit" value="修改"/>
+            <input class="btn" type="reset" value="重置"/>
+        </p>
+    </form>
+</div>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<BookStore.Models.Publisher>
+
+@{
+    ViewBag.Title = "出版社管理_管理员后台_第三波书店";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin-left:5%;">
+    <h3 style="line-height:30px;">您现在的位置：
+        @Html.ActionLink("第三波","Index","../Home")&gt;
+        @Html.ActionLink("管理员后台","Index","Home")&gt;
+        @Html.ActionLink("出版社管理","Index","Publisher")
+    </h3>
+    <form action="@Url.Action("Add","Publisher")" method="post">
+        <p>
+            <input type="text" name="Name" id="Name" style="width:350px;"/>
+            <input class="btn" style="width:90px;" type="submit" value="添加出版社"/>
+            <span style="color:red;">@TempData["message"]</span>
+        </p>
+    </form>
+    <table width="100%" style="text-align:center;margin-bottom:50px;">
+        <tr style="font-size:16px;line-height:30px;background-color:lightsteelblue;">
+            <th width="15%">编号</th>
+            <th style="border-left:1px solid gray;border-right:1px solid gray;">出版社名称</th>
+            <th width="15%">操作</th>
+        </tr>
+        @{
+            bool flag = false;
+        }
+        @foreach (var c in Model)
+        {
+            <tr @if(flag==false){
+                    <text>style="font-size:14px;line-height:25px;"</text>
+                }else{
+                    <text>style="font-size:14px;line-height:25px;background-color:lightblue;"</text>
+                }>
+                <td width="15%" style="border-left:1px solid gray;border-right:1px solid gray;">@c.Id</td>
+                <td>@c.Name</td>
+                <td width="15%" style="border-left:1px solid gray;border-right:1px solid gray;">
+                    @Html.ActionLink("编辑", "Edit", "Publisher", new { id=c.Id},null)
+                    @Html.ActionLink("删除", "Delete", "Publisher", new { id = c.Id }, new { onclick="return confirm('是否要删除此出版社？');"})
+                </td>
+            </tr>
+            flag = !flag;
+        }
+    </table>
+</div>

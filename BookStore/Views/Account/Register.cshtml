@@ -1,0 +1,149 @@
+﻿@model BookStore.Models.RegisterModel
+
+@{
+    ViewBag.Title = "用户注册_第三波书店";
+}
+@section scripts{
+    <link href="~/Content/themes/base/minified/jquery.ui.datepicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.ui.datepicker-zh-CN.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.plus.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //日期控件
+            $("#Birthday").datepicker();
+            var flag = false;
+            //ajax，检查用户名是否重复
+            function checkLoginIdIsExists() {
+                if ($("#LoginId").val() == "") {
+                    $("#LoginIdMsg").html("用户名不能为空").css("color", "red");
+                    return false;
+                }
+                $.ajax({
+                    type: "post",
+                    url: "@Url.Action("CheckLoginIdIsExists","Account")",
+                    data: "loginId=" + $("#LoginId").val(),
+                    success: function (result) {
+                        if (result == "1") {
+                            $("#LoginIdMsg").html("用户名已存在").css("color", "red");
+                            flag = false;
+                        } else {
+                            $("#LoginIdMsg").html("用户名可用").css("color", "green");
+                            flag = true;
+                        }
+                    }
+                });
+                return flag;
+            }
+            $("#LoginId").blur(checkLoginIdIsExists);
+            $("form").submit(function () {
+                return checkLoginIdIsExists();
+            });
+        });
+    </script>
+}
+@section styles{
+    <style>
+        input[type='text'],input[type='password']{
+                width:227px;
+            }
+        .btn {
+            margin-top:10px;
+        }
+        .btn:first-child {
+            margin-left:40px;
+        }
+    </style>
+}
+@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+<fieldset>
+<legend>用户注册</legend>
+<table>
+<tr>
+    <td>@Html.LabelFor(m => m.LoginId)：</td>
+    <td>@Html.TextBoxFor(m => m.LoginId)
+        @Html.ValidationMessageFor(m => m.LoginId)
+        <span id="LoginIdMsg"></span>
+    </td>
+</tr>
+<tr>
+    <td>@Html.LabelFor(m => m.Name)：</td>
+    <td>@Html.TextBoxFor(m => m.Name)
+        @Html.ValidationMessageFor(m => m.Name)
+    </td>
+</tr>
+<tr>
+    <td>@Html.LabelFor(m => m.LoginPwd)：</td>
+    <td>
+        @if (Model != null && Model.LoginPwd != null)
+        {
+			@Html.PasswordFor(m => m.LoginPwd, new { value = Model.LoginPwd })
+        }
+        else
+        {
+            @Html.PasswordFor(m => m.LoginPwd)
+        }
+		@Html.ValidationMessageFor(m => m.LoginPwd)
+    </td>
+</tr>
+<tr>
+    <td>@Html.LabelFor(m => m.LoginPwdConfirm)：</td>
+    <td>
+        @if (Model != null && Model.LoginPwdConfirm != null)
+		{
+            @Html.PasswordFor(m => m.LoginPwdConfirm, new { value = Model.LoginPwdConfirm })
+		}
+		else
+		{
+			@Html.PasswordFor(m=>m.LoginPwdConfirm)
+		}
+		@Html.ValidationMessageFor(m=>m.LoginPwdConfirm)
+    </td>
+</tr>
+<tr>
+    <td>@Html.LabelFor(m => m.Birthday)：</td>
+    <td>@Html.TextBoxFor(m => m.Birthday, new { @readonly = "readonly" })</td>
+</tr>
+<tr>
+    <td>@Html.LabelFor(m => m.Phone)：</td>
+    <td>@Html.TextBoxFor(m => m.Phone)
+        @Html.ValidationMessageFor(m => m.Phone)
+    </td>
+</tr>
+<tr>
+    <td>@Html.LabelFor(m => m.Mail)：</td>
+    <td>@Html.TextBoxFor(m => m.Mail)
+        @Html.ValidationMessageFor(m => m.Mail)
+    </td>
+</tr>
+<tr>
+    <td>@Html.LabelFor(m => m.Address)：</td>
+    <td>@Html.TextBoxFor(m => m.Address)
+        @Html.ValidationMessageFor(m => m.Address)
+    </td>
+</tr>
+<tr>
+    <td>@Html.LabelFor(m => m.SecurityCode)：</td>
+    <td>@Html.TextBoxFor(m => m.SecurityCode)
+        @Html.ValidationMessageFor(m => m.SecurityCode)
+    </td>
+</tr>
+<tr>
+    <td></td>
+    <td>
+        <img alt="验证码图片" id="validateCode" title="看不清？点击换一个" src="@Url.Action("SecurityCode", "Account")" onclick="javascript:this.src=this.src+'?';" style="cursor:pointer;"/>
+        <a href="javascript:void(0)" onclick="javascript:document.getElementById('validateCode').src=document.getElementById('validateCode').src+'?';" >看不清换一张</a>
+    </td>
+</tr>
+<tr>
+    <td></td>
+    <td>
+        <input class="btn" type="submit" value="提交" />
+        <input class="btn" type="reset" value="重置" />
+    </td>
+</tr>
+</table>
+</fieldset>
+}
